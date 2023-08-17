@@ -1,0 +1,20 @@
+import express from 'express';
+import {
+	loginHandler,
+	refreshAccessTokenHandler,
+	registerHandler,
+} from '../controllers/auth.controller';
+import { validate } from '../middleware/validate';
+import { createUserSchema, loginUserSchema } from '../schemas/user.schema';
+
+const router = express.Router();
+
+// Register user route
+router.post('/register', validate(createUserSchema), registerHandler);
+
+// Login user route
+router.post('/login', validate(loginUserSchema), loginHandler);
+
+// Refresh access toke route
+router.post('/refresh', refreshAccessTokenHandler);
+export default router;
