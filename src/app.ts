@@ -5,9 +5,7 @@ import config from 'config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import connectDB from './utils/connectDB';
-import userRouter from './routes/user.route';
-import authRouter from './routes/auth.route';
-
+import { BlogRouter, AuthRouter, UserRouter } from './routes';
 const app = express();
 
 // Middleware
@@ -30,9 +28,9 @@ app.use(
 );
 
 // 5. Routes
-app.use('/api/users', userRouter);
-app.use('/api/auth', authRouter);
-
+app.use('/api/users', UserRouter);
+app.use('/api/auth', AuthRouter);
+app.use('/api/blogs', BlogRouter);
 // Testing
 app.get('/healthChecker', (req: Request, res: Response, next: NextFunction) => {
 	res.status(200).json({

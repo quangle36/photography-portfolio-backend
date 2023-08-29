@@ -7,6 +7,7 @@ export const getMeHandler = (
 	next: NextFunction
 ) => {
 	try {
+		console.log(res.locals);
 		const user = res.locals.user;
 		res.status(200).json({
 			status: 'success',
