@@ -17,3 +17,7 @@ export const findBlogById = async (id: string) => {
 export const updateBlogById = async (id: string, input: Partial<Blog>) => {
 	return await BlogModel.findByIdAndUpdate(id, input, { new: true });
 };
+
+export const deleteBlogById = async (id: string) => {
+	return await BlogModel.findByIdAndDelete(id);
+};

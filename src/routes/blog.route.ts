@@ -13,4 +13,5 @@ router.get('/', blogController.getAllBlogsHandler);
 
 router.get('/:id', blogController.getBlogByIdHandler);
 router.put('/:id', blogController.updateBlogByIdHandler);
+router.delete('/:id', blogController.deleteBlogByIdHandler);
 export default router;

@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import BlogModel, { Blog } from '../models/blog.model';
 import {
 	createBlog,
+	deleteBlogById,
 	findAllBlogs,
 	findBlogById,
 	updateBlogById,
@@ -44,6 +45,20 @@ class BlogController {
 		try {
 			const blog = await updateBlogById(req.params.id, req.body);
 			res.status(StatusCode.SuccessOK).json(SuccessResponse(blog));
+		} catch (err: any) {
+			res.status(StatusCode.ClientErrorBadRequest).json({ error: err.message });
+		}
+	};
+	public deleteBlogByIdHandler = async (req: Request, res: Response) => {
+		try {
+			const blog = await findBlogById(req.params.id);
+			if (!blog) {
+				return res
+					.status(StatusCode.ClientErrorBadRequest)
+					.json({ error: 'Blog not found' });
+			}
+			const response = await deleteBlogById(req.params.id);
+			res.status(StatusCode.SuccessOK).json(SuccessResponse(response));
 		} catch (err: any) {
 			res.status(StatusCode.ClientErrorBadRequest).json({ error: err.message });
 		}
