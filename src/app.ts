@@ -4,10 +4,25 @@ import morgan from 'morgan';
 import config from 'config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
+import { GridFsStorage } from 'multer-gridfs-storage';
+import Grid from 'gridfs-stream';
 import connectDB from './utils/connectDB';
-import { BlogRouter, AuthRouter, UserRouter } from './routes';
+import {
+	BlogRouter,
+	AuthRouter,
+	UserRouter,
+	UploadRouter,
+	MediaRouter,
+	MusicRouter,
+	GenreRouter,
+} from './routes';
+import mongoose from 'mongoose';
+import { dbUrl } from './utils/constants';
+import StatusCode from 'status-code-enum';
+import { SuccessResponse } from './utils/response';
 const app = express();
-
+const baseUrl = '/api';
 // Middleware
 
 // 1. Body Parser
@@ -26,11 +41,14 @@ app.use(
 		credentials: true,
 	})
 );
-
 // 5. Routes
-app.use('/api/users', UserRouter);
-app.use('/api/auth', AuthRouter);
-app.use('/api/blogs', BlogRouter);
+app.use(`${baseUrl}/users`, UserRouter);
+app.use(`${baseUrl}/auth`, AuthRouter);
+app.use(`${baseUrl}/blogs`, BlogRouter);
+app.use(`${baseUrl}/music`, MusicRouter);
+app.use(`${baseUrl}/genre`, GenreRouter);
+app.use(`${baseUrl}`, UploadRouter);
+app.use(`${baseUrl}`, MediaRouter);
 // Testing
 app.get('/healthChecker', (req: Request, res: Response, next: NextFunction) => {
 	res.status(200).json({

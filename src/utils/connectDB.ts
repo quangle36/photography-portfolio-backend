@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import config from 'config';
+import { dbUrl } from './constants';
 
-const dbUrl = `mongodb://${config.get('dbName')}:${config.get(
-	'dbPass'
-)}@localhost:6000/jwtAuth?authSource=admin`;
+// const dbUrl = `mongodb://${config.get('dbName')}:${config.get(
+// 	'dbPass'
+// )}@localhost:27017/jwtAuth?authSource=admin`;
 // const dbUrl = `mongodb+srv://${config.get('dbName')}:${config.get(
 // 	'dbPass'
 // )}@cluster0.jd9vy1b.mongodb.net/?retryWrites=true&w=majority`;

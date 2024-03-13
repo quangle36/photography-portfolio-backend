@@ -147,7 +147,7 @@ export const refreshAccessTokenHandler = async (
 
 		// Sign new access token
 		const access_token = signJwt({ sub: user._id }, 'accessTokenPrivateKey', {
-			expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`,
+			expiresIn: `${config.get<number>('accessTokenExpiresIn')}`,
 		});
 
 		// Send the access token as cookie
@@ -173,6 +173,7 @@ export const logoutHandler = async (
 	next: NextFunction
 ) => {
 	try {
+		console.log('res.locals', res.locals);
 		const user = res.locals.user;
 		await redisClient.del(String(user._id));
 		logout(res);

@@ -1,22 +1,22 @@
-import { omit, get } from 'lodash';
+import * as lodash from 'lodash';
 import { FilterQuery, QueryOptions } from 'mongoose';
-import config from 'config';
 import userModel, { User } from '../models/user.model';
 import { excludedFields } from '../controllers/auth.controller';
 import { signJwt } from '../utils/jwt';
-import redisClient from '../utils/connectRedis';
+// import redisClient from '../utils/connectRedis';
 import { DocumentType } from '@typegoose/typegoose';
-
+import config from '../../config/default';
+import redisClient from '../utils/connectRedis';
 // CreateUser service
 export const createUser = async (input: Partial<User>) => {
 	const user = await userModel.create(input);
-	return omit(user.toJSON(), excludedFields);
+	return lodash.omit(user.toJSON(), excludedFields);
 };
 
 // Find User by Id
 export const findUserById = async (id: string) => {
 	const user = await userModel.findById(id).lean();
-	return omit(user, excludedFields);
+	return lodash.omit(user, excludedFields);
 };
 
 // Find All users
@@ -36,12 +36,12 @@ export const findUser = async (
 export const signToken = async (user: DocumentType<User>) => {
 	// Sign the access token
 	const access_token = signJwt({ sub: user._id }, 'accessTokenPrivateKey', {
-		expiresIn: `${config.get<number>('accessTokenExpiresIn')}h`,
+		expiresIn: `${config.accessTokenExpiresIn}m`,
 	});
 
 	// Sign the refresh token
 	const refresh_token = signJwt({ sub: user._id }, 'refreshTokenPrivateKey', {
-		expiresIn: `${config.get<number>('refreshTokenExpiresIn')}h`,
+		expiresIn: `${config.refreshTokenExpiresIn}h`,
 	});
 
 	// Create a Session

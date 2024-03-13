@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "ts-node-dev --respawn --transpile-only src/app.ts",
+		"start": "DEBUG=express:* ts-node-dev --respawn --transpile-only src/app.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
@@ -16,6 +16,7 @@
 		"@types/cookie-parser": "^1.4.3",
 		"@types/cors": "^2.8.13",
 		"@types/express": "^4.17.17",
+		"@types/gridfs-stream": "^0.5.39",
 		"@types/jsonwebtoken": "^9.0.2",
 		"@types/lodash": "^4.14.197",
 		"@types/morgan": "^1.9.4",
@@ -31,12 +32,16 @@
 		"cors": "^2.8.5",
 		"dotenv": "^16.3.1",
 		"express": "^4.18.2",
+		"gridfs-stream": "^1.1.1",
 		"jsonwebtoken": "^9.0.1",
 		"lodash": "^4.17.21",
 		"mongoose": "^7.4.2",
+		"multer": "^1.4.5-lts.1",
+		"multer-gridfs-storage": "^5.0.2",
 		"redis": "^4.6.7",
 		"status-code-enum": "^1.0.0",
 		"ts-node-dev": "^2.0.0",
+		"util": "^0.12.5",
 		"zod": "^3.21.4"
 	}
 }
