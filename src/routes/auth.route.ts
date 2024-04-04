@@ -24,5 +24,5 @@ router.post('/refresh', refreshAccessTokenHandler);
 router.use(deserializeUser, requireUser);
 
 // Logout User
-router.get('/logout', logoutHandler);
+router.post('/logout', logoutHandler);
 export default router;

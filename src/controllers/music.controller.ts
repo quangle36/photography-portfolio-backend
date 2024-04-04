@@ -34,7 +34,7 @@ class MusicController {
 	};
 	public getAllMusicsHandler = async (req: Request, res: Response) => {
 		try {
-			const { genre } = req.query;
+			const { genre, artists,  } = req.query;
 			let query;
 			if (genre) {
 				const genreObj = await findGenreByName(genre as string);

@@ -87,8 +87,8 @@ export const loginHandler = async (
 		const { access_token, refresh_token } = await signToken(user);
 
 		// Send Access Token in Cookie
-		res.cookie('access_token', access_token, accessTokenCookieOptions);
-		res.cookie('refresh_token', refresh_token, refreshTokenCookieOptions);
+		// res.cookie('access_token', access_token, accessTokenCookieOptions);
+		// res.cookie('refresh_token', refresh_token, refreshTokenCookieOptions);
 		res.cookie('logged_in', true, {
 			...accessTokenCookieOptions,
 			httpOnly: false,
@@ -97,8 +97,11 @@ export const loginHandler = async (
 		// Send Access Token
 		res.status(200).json({
 			status: 'success',
-			access_token,
-			refresh_token,
+			token: {
+				access_token,
+				refresh_token,
+			},
+			user,
 		});
 	} catch (err: any) {
 		next(err);
@@ -173,7 +176,6 @@ export const logoutHandler = async (
 	next: NextFunction
 ) => {
 	try {
-		console.log('res.locals', res.locals);
 		const user = res.locals.user;
 		await redisClient.del(String(user._id));
 		logout(res);
