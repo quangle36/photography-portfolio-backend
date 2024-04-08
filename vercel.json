@@ -1,5 +1,5 @@
 {
-	"version": 1,
+	"version": 2,
 	"name": "music-app-player-backend",
 	"builds": [{ "src": "app.ts", "use": "@vercel/node" }],
 	"routes": [
