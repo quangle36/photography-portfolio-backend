@@ -16,15 +16,20 @@ import {
 	MediaRouter,
 	MusicRouter,
 	GenreRouter,
+	AlbumRouter,
 } from './routes';
 import mongoose from 'mongoose';
 import { dbUrl } from './utils/constants';
 import StatusCode from 'status-code-enum';
 import { SuccessResponse } from './utils/response';
+import { Album } from './models/album.model';
+import bodyParser from 'body-parser';
 const app = express();
 const baseUrl = '/api';
 // Middleware
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer().any());
 // 1. Body Parser
 app.use(express.json({ limit: '10kb' }));
 
@@ -44,7 +49,7 @@ app.use(
 // 5. Routes
 app.use(`${baseUrl}/users`, UserRouter);
 app.use(`${baseUrl}/auth`, AuthRouter);
-app.use(`${baseUrl}/blogs`, BlogRouter);
+app.use(`${baseUrl}/albums`, AlbumRouter);
 app.use(`${baseUrl}/music`, MusicRouter);
 app.use(`${baseUrl}/genre`, GenreRouter);
 app.use(`${baseUrl}`, UploadRouter);
