@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import config from 'config';
