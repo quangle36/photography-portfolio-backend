@@ -13,7 +13,6 @@ import { SuccessResponse } from '../utils/response';
 class BlogController {
 	public createBlogHandler = async (req: Request, res: Response) => {
 		try {
-			console.log(res.locals);
 			const loggedInUser = res.locals.user;
 			const blog = await createBlog({
 				title: req.body.title,

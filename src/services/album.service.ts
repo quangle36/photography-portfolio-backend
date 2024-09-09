@@ -7,7 +7,7 @@ export const createAlbum = async (input: Partial<Album>) => {
 };
 
 export const findAllAlbums = async () => {
-	return await AlbumModel.find();
+	return await AlbumModel.find({});
 };
 
 export const findAlbumById = async (id: string) => {

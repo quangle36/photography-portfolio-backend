@@ -9,7 +9,6 @@ import {
 	updateAlbumById,
 } from '../services/album.service';
 import { SuccessResponse } from '../utils/response';
-import { File } from 'buffer';
 import cloudinary from '../../config/cloudinary';
 
 class AlbumController {
@@ -54,6 +53,7 @@ class AlbumController {
 	public getAllAlbumsHandler = async (req: Request, res: Response) => {
 		try {
 			const albums = await findAllAlbums();
+			console.log('albums', albums);
 			res.status(StatusCode.SuccessOK).json(SuccessResponse(albums));
 		} catch (err: any) {
 			res.status(StatusCode.ClientErrorBadRequest).json({ error: err.message });

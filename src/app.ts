@@ -6,8 +6,6 @@ import config from 'config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
-import { GridFsStorage } from 'multer-gridfs-storage';
-import Grid from 'gridfs-stream';
 import connectDB from './utils/connectDB';
 import {
 	BlogRouter,
@@ -15,15 +13,9 @@ import {
 	UserRouter,
 	UploadRouter,
 	MediaRouter,
-	MusicRouter,
-	GenreRouter,
 	AlbumRouter,
+	CustomerMessageRouter,
 } from './routes';
-import mongoose from 'mongoose';
-import { dbUrl } from './utils/constants';
-import StatusCode from 'status-code-enum';
-import { SuccessResponse } from './utils/response';
-import { Album } from './models/album.model';
 import bodyParser from 'body-parser';
 const app = express();
 const baseUrl = '/api';
@@ -55,8 +47,7 @@ app.use(
 app.use(`${baseUrl}/users`, UserRouter);
 app.use(`${baseUrl}/auth`, AuthRouter);
 app.use(`${baseUrl}/albums`, AlbumRouter);
-app.use(`${baseUrl}/music`, MusicRouter);
-app.use(`${baseUrl}/genre`, GenreRouter);
+app.use(`${baseUrl}/customer-message`, CustomerMessageRouter);
 app.use(`${baseUrl}`, UploadRouter);
 app.use(`${baseUrl}`, MediaRouter);
 // Testing
